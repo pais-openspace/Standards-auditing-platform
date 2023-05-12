@@ -1,0 +1,56 @@
+name: Аудит
+standard: ГОСТ Р ИСО 9001-2015
+definition: Пример конфигурационного файла для работы программы аудита
+author:
+  name: Roman
+  second name: Lupashko
+  status: student
+
+fields:
+  - &mark_field_o_o
+    name: organization object
+    required: "True"
+  - &mark_field_o_s
+    name: organization subject
+    required: "True"
+  - &mark_field_r_c
+    name: responsible contractor
+    required: "True"
+  - &mark_field_r_p
+    name: responsible person
+    required: "True"
+  - &mark_field_a_t
+    name: audit type
+    options:
+      - Внутренний
+      - Сторонний
+    required: "True"
+
+questions:
+  - id: &quest_id_1 1
+    enumerator: 1
+    question: Какие процессы в организации являются ключевыми?
+    options:
+      - id: 1
+        value: Все процессы
+      - id: 2
+        value: Только процессы, связанные с производством
+      - id: 3
+        value: Только процессы, связанные с управлением
+      - id: 4
+        value: Только процессы, связанные с продажами
+    true_selected: 1
+
+  - id: &quest_id_2 2
+    enumerator: 2
+    question: Какие документы используются для управления процессами?
+    options:
+      - id: 1
+        value: Только инструкции по работе
+      - id: 2
+        value: Только технические задания
+      - id: 3
+        value: Инструкции по работе и технические задания
+      - id: 4
+        value: Инструкции по работе, технические задания и регламенты
+    true_selected: 1

@@ -9,22 +9,22 @@ author:
 fields:
   - &mark_field_o_o
     name: organization object
-    required: "True"
+    required: True
   - &mark_field_o_s
     name: organization subject
-    required: "True"
+    required: True
   - &mark_field_r_c
     name: responsible contractor
-    required: "True"
+    required: True
   - &mark_field_r_p
     name: responsible person
-    required: "True"
+    required: True
   - &mark_field_a_t
     name: audit type
     options:
       - Внутренний
       - Сторонний
-    required: "True"
+    required: True
 
 questions:
   - id: &quest_id_1 1
@@ -39,7 +39,7 @@ questions:
         value: Только процессы, связанные с управлением
       - id: 4
         value: Только процессы, связанные с продажами
-    true_selected: 1
+    true_selected: [1,]
 
   - id: &quest_id_2 2
     enumerator: 2
@@ -53,4 +53,21 @@ questions:
         value: Инструкции по работе и технические задания
       - id: 4
         value: Инструкции по работе, технические задания и регламенты
-    true_selected: 1
+    true_selected: [1, 2]
+
+report:
+  samples:
+    - name: one
+      samplecode: |
+        ```
+        function sample() {
+          return 1;
+        }
+        ```
+    - name: two
+      samplecode: |
+        ```
+        function sample() {
+          return 2;
+        }
+        ```

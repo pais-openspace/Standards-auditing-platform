@@ -5,9 +5,9 @@ class SAP_question:
     """
     text: str
     options: tuple[int, str]
-    true_selected: int
+    true_selected: list[int]
 
-    def __init__(self, text: str, options: tuple[int, str], true_selected: int):
+    def __init__(self, text: str, options: tuple[int, str], true_selected: list[int]):
         self.text = text
         self.options = options
         self.true_selected = true_selected
@@ -21,7 +21,7 @@ class SAP_question:
         """
         return self.true_selected == self.selected
 
-    def select(self, option_id: int) -> None:
+    def select(self, option_id: list[int]) -> None:
         """
 
         :param option_id: id ответа

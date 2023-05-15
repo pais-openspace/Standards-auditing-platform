@@ -56,18 +56,44 @@ questions:
     true_selected: [1, 2]
 
 report:
-  samples:
-    - name: one
-      samplecode: |
-        ```
-        function sample() {
-          return 1;
-        }
-        ```
-    - name: two
-      samplecode: |
-        ```
-        function sample() {
-          return 2;
-        }
-        ```
+  template: >
+    header:
+      author:
+        name: {{ author["name"] }}
+        sur name: {{ author['second name'] }}
+        status: {{ author['status'] }}
+      fields:
+        {% for field in fields %}
+        - name: {{ field.name }}
+          value: {{ field.value }}  
+        {% endfor %}
+    body:
+      report:
+        score: {{ score }}
+        error_quest:
+        {% for quest in questions %}
+          {% if not quest.right %}
+          - text: {{ quest.text }}
+            selected_text:
+            {% for sel_id in quest.selected %}
+              - {{ quest.options[sel_id-1]["value"] }}
+            {% endfor %}
+            true_selected_text:
+              {% for sel_id in quest.true_selected %}
+                - {{ quest.options[sel_id-1]["value"] }}
+              {% endfor %}
+          {% endif %}
+        {% endfor %}
+    history:    
+      questions:
+        {% for quest in questions %}
+        - text: {{ quest.text }}
+          selected_id: {{ quest.selected }}
+          selected_text:
+          {% for sel_id in quest.selected %}
+            - {{ quest.options[sel_id-1]["value"] }}
+          {% endfor %}
+          right: {{ quest.right }}
+        {% endfor %}
+    
+

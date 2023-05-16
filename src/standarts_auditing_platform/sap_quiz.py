@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 import yaml
 import jinja2
+import pdfkit
+from pyhtml2pdf import converter
 
 from src.standarts_auditing_platform.sap_question import SAP_question
 
@@ -99,7 +101,7 @@ class SAP_audit:
             for field in yaml_data['fields']
         ]
         self.questions = [
-            SAP_question(quest['question'], quest['options'], quest['true_selected']) for
+            SAP_question(quest['question'], quest['options'], quest['true_selected'], quest['recommendation']) for
             quest in yaml_data['questions']
         ]
 
@@ -113,14 +115,18 @@ if __name__ == '__main__':
     for i, quest in sapa.start():
         if isinstance(quest, A_field):
             print('F: ', i, quest.name)
-            sapa.answer(i, quest, str(input('F: '+str(i)+" "+quest.name+' : ')))
+            # sapa.answer(i, quest, str(input('F: '+str(i)+" "+quest.name+' : ')))
+            sapa.answer(i, quest, '1')
             test_ += 123
         elif isinstance(quest, SAP_question):
             print('Q: ', i, quest.text, *quest.options)
-            sapa.answer(i, quest, [int(select) for select in input('F: '+str(i)+" "+quest.text+' : ').split()])
+            # sapa.answer(i, quest, [int(select) for select in input('F: '+str(i)+" "+quest.text+' : ').split()])
+            sapa.answer(i, quest, [1, 2])
 
     report = sapa.report()
     print(report)
+    with open('report.html', 'wt', encoding='utf8') as rep_file:
+        rep_file.write(report)
 
     # for i in f:
     #     print("F: ", i.name, "\t|\t", i.answer)

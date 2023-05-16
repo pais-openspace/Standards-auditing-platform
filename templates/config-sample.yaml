@@ -40,6 +40,8 @@ questions:
       - id: 4
         value: Только процессы, связанные с продажами
     true_selected: [1,]
+    recommendation: >
+      Какая-то рекомендация по 1 пункту
 
   - id: &quest_id_2 2
     enumerator: 2
@@ -54,9 +56,11 @@ questions:
       - id: 4
         value: Инструкции по работе, технические задания и регламенты
     true_selected: [1, 2]
+    recommendation: >
+      Какая-то рекомендация по 2 вопросу
 
 report:
-  template: >
+  template2: >
     header:
       author:
         name: {{ author["name"] }}
@@ -70,18 +74,10 @@ report:
     body:
       report:
         score: {{ score }}
-        error_quest:
+        recommendation:
         {% for quest in questions %}
           {% if not quest.right %}
-          - text: {{ quest.text }}
-            selected_text:
-            {% for sel_id in quest.selected %}
-              - {{ quest.options[sel_id-1]["value"] }}
-            {% endfor %}
-            true_selected_text:
-              {% for sel_id in quest.true_selected %}
-                - {{ quest.options[sel_id-1]["value"] }}
-              {% endfor %}
+          - text: {{ quest.recommendation }}
           {% endif %}
         {% endfor %}
     history:    
@@ -97,3 +93,104 @@ report:
         {% endfor %}
     
 
+#- text: {{ quest.text }}
+#            selected_text:
+#            {% for sel_id in quest.selected %}
+#              - {{ quest.options[sel_id-1]["value"] }}
+#            {% endfor %}
+#            true_selected_text:
+#              {% for sel_id in quest.true_selected %}
+#                - {{ quest.options[sel_id-1]["value"] }}
+#              {% endfor %}
+  template: >
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <style>
+          p {
+            color: red;
+          }
+
+          @page {
+            size: 21cm 29.7cm;
+            margin: 20mm 20mm 20mm 20mm;
+          }
+
+          body {
+            size: 21cm 29.7cm;
+            margin: 20mm 20mm 20mm 20mm;
+            align-content: center;
+          }
+
+          h1, h2, h3, p {
+            max-width: max-content;
+          }
+    </style>
+    <title>Отчет по аудиту</title>
+    </head>
+    <body>
+    
+    <header>
+      <h1>Отчет по аудиту</h1>
+      <h2>По стандарту {{ standard }}</h2>
+      <p>{{ definition }}</p>
+      <div>
+        <p>{{ author["name"] }}</p> <p>{{ author["second name"] }}</p>
+        <p>{{ author["status"] }}</p>
+      </div>
+      <div>
+        {% for field in fields %}
+        <dt>{{ field.name }}</dt>
+          <dd>{{ field.value }}</dd>
+        {% endfor %}
+      </div>
+    </header>
+    
+    <main>
+      <h2>Основная часть</h2>
+      <div>
+        <p>Score</p>
+        <p>{{ score }}</p>
+      </div>
+      <div>
+        <h3>Recommendation</h3>
+        <ul>
+        {% for quest in questions %}
+          {% if not quest.right %}
+          <li>{{ quest.recommendation }}</li>
+          {% endif %}
+        {% endfor %}
+        </ul>
+      </div>
+      <hr/>
+      <div class="application">
+        <h2>Приложение 1</h2>
+        <ul>
+          {% for quest in questions %}
+          <li>
+            <p>{{ quest.text }}</p>
+            <ul>
+            {% for option in quest.options %}
+              <li>
+                {% if option["id"] in quest.selected%}
+                <p>selected</p>
+                {% endif %}
+                {% if option["id"] in quest.true_selected%}
+                <p>Верный ответ</p>
+                {% endif %}
+                {{ option["value"] }}
+              </li>
+            {% endfor %}
+            </ul>
+            <p>{{ quest.right }}</p>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </main>
+    
+    <footer>
+    </footer>
+
+    </body>
+    </html>

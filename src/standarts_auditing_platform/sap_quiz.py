@@ -1,8 +1,6 @@
 from dataclasses import dataclass
 import yaml
 import jinja2
-import pdfkit
-from pyhtml2pdf import converter
 
 from src.standarts_auditing_platform.sap_question import SAP_question
 

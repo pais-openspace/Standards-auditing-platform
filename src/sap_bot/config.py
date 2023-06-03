@@ -1,0 +1,8 @@
+
+
+
+# Bot
+SKIP_UPDATES = True
+BOT_TOKEN = '6007097042:AAGnUUR3FUFnB5Hf3aA-f9UPtlCp7J1Jl1g'
+LOGFILE = 'logs/sap_bot.log'
+OWNER_ID = 0

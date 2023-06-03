@@ -32,7 +32,8 @@ async def inline_kb_answer_callback_handler(message: types.Message):
     print(message.text)
     await message.answer("Доступные стандарты", reply_markup=choose_poll)
 
-
 @dp.message_handler()
 async def echo(message: types.Message):
+    if message.text in [quiz.sap_audit.standard for quiz in setting.list_quiz]:
+        await message.answer("Начало теста")
     await message.reply(message.text)

@@ -30,8 +30,14 @@ class SAP_audit:
 
     report_template: str
 
+    _is_end = False
+
     def __init__(self, config_path: str):
         self.__something(self.__validate(self.__load(config_path)))
+
+    @property
+    def is_end(self):
+        return self._is_end
 
     def start(self):
         for index, field in enumerate(self.fields):
@@ -39,6 +45,8 @@ class SAP_audit:
 
         for index, quest in enumerate(self.questions):
             yield index, quest
+
+        self._is_end = True
 
     def answer(self, index, _quest: A_field | SAP_question, answer):
         if isinstance(_quest, A_field):

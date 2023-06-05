@@ -7,6 +7,7 @@ from src.standarts_auditing_platform.sap_quiz import SAP_audit, SAP_question
 def get_new_audit():
     return SAP_audit('templates/config-sample.yaml')
 
+
 def generate_progress_bar(progress):
     bar_length = 20
     filled_length = int(bar_length * progress)

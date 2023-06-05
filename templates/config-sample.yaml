@@ -39,7 +39,7 @@ questions:
         value: Только процессы, связанные с управлением
       - id: 4
         value: Только процессы, связанные с продажами
-    true_selected: [1,]
+    true_selected: [0,]
     recommendation: >
       Какая-то рекомендация по 1 пункту
 
@@ -55,7 +55,7 @@ questions:
         value: Инструкции по работе и технические задания
       - id: 4
         value: Инструкции по работе, технические задания и регламенты
-    true_selected: [1, 2]
+    true_selected: [0, 1]
     recommendation: >
       Какая-то рекомендация по 2 вопросу
 
@@ -71,7 +71,7 @@ questions:
         value: Процессы анализируются и улучшаются только при возникновении проблем
       - id: 4
         value: Процессы анализируются и улучшаются только при проведении внешней аудитории
-    true_selected: [ 2 ]
+    true_selected: [ 1 ]
     recommendation: >
       Какая-то рекомендация по 3 вопросу
 
@@ -87,7 +87,7 @@ questions:
         value: Финансовые показатели и показатели качества продукции или услуг
       - id: 4
         value: Никакие показатели не используются для оценки эффективности процессов
-    true_selected: [ 2 ]
+    true_selected: [ 1 ]
     recommendation: >
       Какая-то рекомендация по 4 вопросу
 
@@ -96,36 +96,48 @@ report:
     <!DOCTYPE html>
     <html>
     <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
     <style>
-          p {
-            color: red;
-          }
+          
 
           @page {
             size: 21cm 29.7cm;
             margin: 20mm 20mm 20mm 20mm;
           }
-
+          
+          * {
+            font-family: 'Montserrat', sans-serif;
+          }
+          
           body {
             size: 21cm 29.7cm;
             margin: 20mm 20mm 20mm 20mm;
             align-content: center;
+            background-color: #424242;
           }
 
           h1, h2, h3, p {
             max-width: max-content;
+            
           }
     
+          p, li {
+            color: white;
+            font-size: 1.2rem;
+          }
+          
           .flex {
             display: flex;
             align-items: center;
           }
-          
+
           .flex > * {
             margin-right: 10px;
             #padding: 10px;
           }
-          
+
     </style>
     <title>Отчет по аудиту</title>
     </head>

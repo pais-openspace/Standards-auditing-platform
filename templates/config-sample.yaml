@@ -1,24 +1,24 @@
 name: Аудит
 standard: ГОСТ Р ИСО 9001-2015
-definition: Пример конфигурационного файла для работы программы аудита
+definition: СИСТЕМЫ МЕНЕДЖМЕНТА КАЧЕСТВА
 author:
   name: Roman
   second name: Lupashko
   status: student
 
 fields:
-  - &mark_field_o_o
-    name: organization object
-    required: True
-  - &mark_field_o_s
-    name: organization subject
-    required: True
-  - &mark_field_r_c
-    name: responsible contractor
-    required: True
-  - &mark_field_r_p
-    name: responsible person
-    required: True
+#  - &mark_field_o_o
+#    name: organization object
+#    required: True
+#  - &mark_field_o_s
+#    name: organization subject
+#    required: True
+#  - &mark_field_r_c
+#    name: responsible contractor
+#    required: True
+#  - &mark_field_r_p
+#    name: responsible person
+#    required: True
   - &mark_field_a_t
     name: audit type
     options:

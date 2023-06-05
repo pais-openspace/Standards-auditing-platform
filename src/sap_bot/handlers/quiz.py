@@ -3,9 +3,11 @@ from aiogram.dispatcher import FSMContext
 from aiogram.utils.markdown import hcode
 
 from src.sap_bot.misc import dp, bot
-from src.sap_bot.utils import get_new_audit, Quiz
+from src.sap_bot.utils import get_new_audit, Quiz, generate_progress_bar
 from src.standarts_auditing_platform import SAP_question
 from src.standarts_auditing_platform.sap_quiz import A_field
+
+
 
 quiz: Quiz = None
 
@@ -16,7 +18,8 @@ current_quiz = ()  # id, quest, answer
 async def test(msg: types.Message):
     global current_quiz, quiz
     quiz = Quiz()
-    await msg.answer('Начало аудита')
+    await msg.answer(f'Начало аудита...\nТекущий стандарт: {quiz.sapa.standard}\nРаботу выполнил: тут косяк из за вложенности\nОписание: {quiz.sapa.definition}')
+
 
     i, quest = quiz.next()
     current_quiz = (i, quest)
@@ -56,7 +59,7 @@ async def quiz_answer(msg: types.Message):
             await msg.answer(f'{quest.name}, {quest.value}')
         elif isinstance(quest, SAP_question):
             print(quest.options)
-            await msg.answer('Правильный ответ'+f'{quest.true_selected}')
+            await msg.answer('Правильный ответ' + f'{quest.true_selected}')
             await bot.send_poll(
                 chat_id=msg.chat.id,
                 question=quest.text,
@@ -89,8 +92,12 @@ async def handle_poll_answer(poll: types.PollAnswer):
     if i == -1:
         # Закончен
         await bot.send_message(poll.user.id, 'Аудит закончен. Получите отчет')
+
         # Вот тут текст html. Его нужно отправить пользователю
-        await bot.send_message(poll.user.id, quiz.sapa.report())
+        with open('output.html', 'w') as file:
+            file.write(quiz.sapa.report())
+        await bot.send_message(poll.user.id, generate_progress_bar(quiz.sapa.score))
+        await bot.send_document(poll.user.id, document=open("output.html", "rb"))
         return
     current_quiz = (i, quest)
     if isinstance(quest, SAP_question):

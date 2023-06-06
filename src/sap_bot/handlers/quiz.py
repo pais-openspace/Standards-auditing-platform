@@ -18,13 +18,13 @@ current_quiz = ()  # id, quest, answer
 async def test(msg: types.Message):
     global current_quiz, quiz
     quiz = Quiz()
-    await msg.answer(f'Начало аудита...\nТекущий стандарт: {quiz.sapa.standard}\nРаботу выполнил: тут косяк из за вложенности\nОписание: {quiz.sapa.definition}')
+    await msg.answer(f'{quiz.sapa.name}\nТекущий стандарт: {quiz.sapa.standard}\nАудит разработал: {quiz.sapa.author["name"]} - {quiz.sapa.author["status"]}\nОписание: {quiz.sapa.definition}')
 
 
     i, quest = quiz.next()
     current_quiz = (i, quest)
     if isinstance(quest, A_field):
-        await msg.answer(f'{quest.name}, {quest.value}')
+        await msg.answer(f'Заполните поле "{quest.name}": ')
     elif isinstance(quest, SAP_question):
         await bot.send_poll(
             chat_id=msg.chat.id,
@@ -49,14 +49,13 @@ async def quiz_answer(msg: types.Message):
 
     if isinstance(current_quiz[1], A_field):
         value = msg.text
-        await msg.answer('Ваш ответ учтен')
         quiz.answer(current_quiz[0], current_quiz[1], value)
         print(quiz.sapa.is_end)
 
         i, quest = quiz.next()
         current_quiz = (i, quest)
         if isinstance(quest, A_field):
-            await msg.answer(f'{quest.name}, {quest.value}')
+            await msg.answer(f'Заполните поле "{quest.name}": ')
         elif isinstance(quest, SAP_question):
             print(quest.options)
             await msg.answer('Правильный ответ' + f'{quest.true_selected}')

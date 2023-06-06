@@ -1,9 +1,7 @@
 from aiogram import types
-from aiogram.dispatcher import FSMContext
-from aiogram.utils.markdown import hcode
 
 from src.sap_bot.misc import dp, bot
-from src.sap_bot.utils import get_new_audit, Quiz, generate_progress_bar
+from src.sap_bot.utils import Quiz, generate_progress_bar
 from src.standarts_auditing_platform import SAP_question
 from src.standarts_auditing_platform.sap_quiz import A_field
 

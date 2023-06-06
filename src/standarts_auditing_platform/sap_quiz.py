@@ -122,6 +122,7 @@ if __name__ == '__main__':
         if isinstance(quest, A_field):
             print('F: ', i, quest.name)
             # sapa.answer(i, quest, str(input('F: '+str(i)+" "+quest.name+' : ')))
+
             sapa.answer(i, quest, '1')
             test_ += 123
         elif isinstance(quest, SAP_question):
